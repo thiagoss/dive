@@ -2,8 +2,11 @@
 import pygame, math, sys
 from pygame.locals import *
 
-screen = pygame.display.set_mode((1024, 768))
+pygame.init()
+screen = pygame.display.set_mode((600, 600))
 clock = pygame.time.Clock()
+pygame.event.set_allowed([QUIT, KEYDOWN, KEYUP])
+pygame.display.set_caption("Dive")
 
 def clamp (x, min, max):
   if x > max:
@@ -102,7 +105,7 @@ while 1:
           elif event.key == K_UP: car.setYDir(DiverSprite.NOP)
           elif event.key == K_DOWN: car.setYDir(DiverSprite.NOP)
     # RENDERING
-    screen.fill((0,0,0))
+    screen.fill((127,127,127))
     car_group.update(deltat)
     car_group.draw(screen)
     pygame.display.flip()
