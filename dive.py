@@ -50,8 +50,6 @@ class DiverSprite(pygame.sprite.Sprite):
         else:
           self.yFriction(2)
 
-#disable this below for HARD
-
         self.move(self.x_speed/10, self.y_speed/10)
 
         self.rect.center = self.position
@@ -84,11 +82,28 @@ class DiverSprite(pygame.sprite.Sprite):
     def move(self, xdiff, ydiff):
         x = self.position[0] + xdiff
         y = self.position[1] + ydiff
+
+        if x < 0:
+          x = 0
+          self.x_speed = 0
+        elif x > 600:
+          self.x_speed = 0
+          x = 600
+
+        if y < 0:
+          y = 0
+          self.y_speed = 0
+        elif y > 600:
+          self.y_speed = 0
+          y = 600
+
         self.position = (x,y)
 
 rect = screen.get_rect()
 car = DiverSprite('triangle.png', rect.center)
 car_group = pygame.sprite.RenderPlain(car)
+
+#TODO use a game loop with better ticking
 while 1:
     deltat = clock.tick(30)
     for event in pygame.event.get():
